@@ -14,44 +14,68 @@ export default class Queen extends Piece {
 
         // moving laterally
         for (let i = currentSquare.row + 1; i < 8; i++) {
-            availableMoves.push(new Square(i, currentSquare.col))
+            let checkingSquare = Square.at(i, currentSquare.col)
+            if (board.getPiece(checkingSquare) != undefined) break
+            availableMoves.push(checkingSquare)
         }
         for (let i = currentSquare.row - 1; i >= 0; i--) {
-            availableMoves.push(new Square(i, currentSquare.col))
+            let checkingSquare = Square.at(i, currentSquare.col)
+            if (board.getPiece(checkingSquare) != undefined) break
+            availableMoves.push(checkingSquare)
         }
         for (let i = currentSquare.col + 1; i < 8; i++) {
-            availableMoves.push(new Square(currentSquare.row, i))
+            let checkingSquare = Square.at(currentSquare.row, i)
+            if (board.getPiece(checkingSquare) != undefined) break
+            availableMoves.push(checkingSquare)
         }
         for (let i = currentSquare.col - 1; i >= 0; i--) {
-            availableMoves.push(new Square(currentSquare.row, i))
+            let checkingSquare = Square.at(currentSquare.row, i)
+            if (board.getPiece(checkingSquare) != undefined) break
+            availableMoves.push(checkingSquare)
         }
 
         // moving diagonally
         // moving top-right
         let index = 1;
         for (let i = currentSquare.row + 1; i < 8; i++){
-            if (currentSquare.col + index < 8) availableMoves.push(new Square(i, currentSquare.col + index))
+            if (currentSquare.col + index < 8) {
+                let checkingSquare = Square.at(i, currentSquare.col + index)
+                if (board.getPiece(checkingSquare) != undefined) break
+                availableMoves.push(checkingSquare)
+            }
             index++
         }
 
         // moving top-left
         index = 1;
         for (let i = currentSquare.row + 1; i < 8; i++){
-            if (currentSquare.col - index >= 0) availableMoves.push(new Square(i, currentSquare.col - index))
+            if (currentSquare.col - index >= 0) {
+                let checkingSquare = Square.at(i, currentSquare.col - index)
+                if (board.getPiece(checkingSquare) != undefined) break
+                availableMoves.push(checkingSquare)
+            }
             index++
         }
 
         // moving bottom-right
         index = 1;
         for (let i = currentSquare.row - 1; i >= 0; i--){
-            if (currentSquare.col + index < 8) availableMoves.push(new Square(i, currentSquare.col + index))
+            if (currentSquare.col + index < 8) {
+                let checkingSquare = Square.at(i, currentSquare.col + index)
+                if (board.getPiece(checkingSquare) != undefined) break
+                availableMoves.push(checkingSquare)
+            }
             index++
         }
 
         // moving bottom-left
         index = 1;
         for (let i = currentSquare.row - 1; i >= 0; i--){
-            if (currentSquare.col - index >= 0) availableMoves.push(new Square(i, currentSquare.col - index))
+            if (currentSquare.col - index >= 0) {
+                let checkingSquare = Square.at(i, currentSquare.col - index)
+                if (board.getPiece(checkingSquare) != undefined) break
+                availableMoves.push(checkingSquare)
+            }
             index++
         }
 
