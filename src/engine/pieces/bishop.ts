@@ -40,7 +40,6 @@ export default class Bishop extends Piece {
             index++
         }
 
-        console.log(availableMoves)
         return availableMoves;
     }
 }
