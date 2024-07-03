@@ -29,6 +29,5 @@ export default class Knight extends Piece {
         if (currentSquare.row - 1 >= 0 && currentSquare.col - 2 >= 0) availableMoves.push(new Square(currentSquare.row - 1, currentSquare.col - 2))
 
         return availableMoves;
-
     }
 }
