@@ -68,6 +68,7 @@ function onDrop(source, target) {
     if (!pieceToMove || !pieceToMove.getAvailableMoves(board).some(square => square.equals(toSquare))) {
         return 'snapback';
     }
+    board.setLastMove(pieceToMove, fromSquare, toSquare);
     pieceToMove.moveTo(board, toSquare);
     updateStatus();
 }

@@ -6,10 +6,28 @@ import Piece from './pieces/piece';
 export default class Board {
     public currentPlayer: Player;
     private readonly board: (Piece | undefined)[][];
+    public lastMove: {
+        lastPieceMoved: Piece | undefined,
+        oldSquare: Square | undefined,
+        newSquare: Square | undefined
+    }
 
     public constructor(currentPlayer?: Player) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
+        this.lastMove = {
+            lastPieceMoved: undefined,
+            oldSquare: undefined,
+            newSquare: undefined
+        }
+    }
+
+    public setLastMove(piece: Piece, oldSquare: Square, newSquare: Square) {
+        this.lastMove = {
+            lastPieceMoved: piece,
+            oldSquare: oldSquare,
+            newSquare: newSquare
+        }
     }
 
     public setPiece(square: Square, piece: Piece | undefined) {
