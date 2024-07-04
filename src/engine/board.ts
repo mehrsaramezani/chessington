@@ -9,7 +9,8 @@ export default class Board {
     public lastMove: {
         lastPieceMoved: Piece | undefined,
         oldSquare: Square | undefined,
-        newSquare: Square | undefined
+        newSquare: Square | undefined,
+        isEnPassant: boolean
     }
 
     public constructor(currentPlayer?: Player) {
@@ -18,15 +19,17 @@ export default class Board {
         this.lastMove = {
             lastPieceMoved: undefined,
             oldSquare: undefined,
-            newSquare: undefined
+            newSquare: undefined,
+            isEnPassant: false
         }
     }
 
-    public setLastMove(piece: Piece, oldSquare: Square, newSquare: Square) {
+    public setLastMove(piece: Piece, oldSquare: Square, newSquare: Square, isEnPassant: boolean) {
         this.lastMove = {
             lastPieceMoved: piece,
             oldSquare: oldSquare,
-            newSquare: newSquare
+            newSquare: newSquare,
+            isEnPassant: isEnPassant
         }
     }
 

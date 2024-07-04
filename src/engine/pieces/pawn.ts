@@ -32,18 +32,25 @@ export default class Pawn extends Piece {
                 let pieceToTheRight = board.getPiece(Square.at(currentSquare.row,currentSquare.col + 1));
                 if(pieceToTheRight != undefined && pieceToTheRight?.player != this.player && pieceToTheRight instanceof Pawn) {
                     let enPassantLastMove = {
-                        lastPieceMoved: pieceToTheRight,
                         oldSquare: Square.at(currentSquare.row + 2,currentSquare.col + 1),
                         newSquare: Square.at(currentSquare.row,currentSquare.col + 1)
                     }
-                    if (board.lastMove == enPassantLastMove){
+                    if (board.lastMove.oldSquare?.equals(enPassantLastMove.oldSquare) && board.lastMove.newSquare?.equals(enPassantLastMove.newSquare)){
                         availableMoves.push(Square.at(currentSquare.row + 1,currentSquare.col + 1))
                     }
                 }
             }
             if (currentSquare.col - 1 >= 0) {
                 let pieceToTheLeft = board.getPiece(Square.at(currentSquare.row,currentSquare.col - 1));
-                if(pieceToTheLeft != undefined && pieceToTheLeft?.player != this.player && pieceToTheLeft instanceof Pawn) availableMoves.push(Square.at(currentSquare.row + 1,currentSquare.col - 1))
+                if(pieceToTheLeft != undefined && pieceToTheLeft?.player != this.player && pieceToTheLeft instanceof Pawn) {
+                    let enPassantLastMove = {
+                        oldSquare: Square.at(currentSquare.row + 2,currentSquare.col - 1),
+                        newSquare: Square.at(currentSquare.row,currentSquare.col - 1)
+                    }
+                    if (board.lastMove.oldSquare?.equals(enPassantLastMove.oldSquare) && board.lastMove.newSquare?.equals(enPassantLastMove.newSquare)){
+                        availableMoves.push(Square.at(currentSquare.row + 1,currentSquare.col - 1))
+                    }
+                }
             }
         }
         if (this.player == Player.BLACK && currentSquare.row > 0) {
@@ -63,12 +70,27 @@ export default class Pawn extends Piece {
 
             if (currentSquare.col + 1 < 8) {
                 let pieceToTheRight = board.getPiece(Square.at(currentSquare.row,currentSquare.col + 1));
-                if(pieceToTheRight != undefined && pieceToTheRight?.player != this.player && pieceToTheRight instanceof Pawn) availableMoves.push(Square.at(currentSquare.row - 1,currentSquare.col + 1))
+                if(pieceToTheRight != undefined && pieceToTheRight?.player != this.player && pieceToTheRight instanceof Pawn) {
+                    let enPassantLastMove = {
+                        oldSquare: Square.at(currentSquare.row - 2,currentSquare.col + 1),
+                        newSquare: Square.at(currentSquare.row,currentSquare.col + 1)
+                    }
+                    if (board.lastMove.oldSquare?.equals(enPassantLastMove.oldSquare) && board.lastMove.newSquare?.equals(enPassantLastMove.newSquare)){
+                        availableMoves.push(Square.at(currentSquare.row - 1,currentSquare.col + 1))
+                    }
+                }
             }
             if (currentSquare.col - 1 >= 0) {
                 let pieceToTheLeft = board.getPiece(Square.at(currentSquare.row,currentSquare.col - 1));
-                if(pieceToTheLeft != undefined && pieceToTheLeft?.player != this.player && pieceToTheLeft instanceof Pawn) availableMoves.push(Square.at(currentSquare.row - 1,currentSquare.col - 1))
-            }
+                if(pieceToTheLeft != undefined && pieceToTheLeft?.player != this.player && pieceToTheLeft instanceof Pawn) {
+                    let enPassantLastMove = {
+                        oldSquare: Square.at(currentSquare.row - 2,currentSquare.col - 1),
+                        newSquare: Square.at(currentSquare.row,currentSquare.col - 1)
+                    }
+                    if (board.lastMove.oldSquare?.equals(enPassantLastMove.oldSquare) && board.lastMove.newSquare?.equals(enPassantLastMove.newSquare)){
+                        availableMoves.push(Square.at(currentSquare.row - 1,currentSquare.col - 1))
+                    }
+                }              }
         }
         return availableMoves;
     }

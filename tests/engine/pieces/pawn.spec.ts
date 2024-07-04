@@ -89,7 +89,7 @@ describe('Pawn', () => {
             const opposingPawn = new Pawn(Player.BLACK);
             board.setPiece(Square.at(4, 4), pawn);
             board.setPiece(Square.at(4, 3), opposingPawn);
-            board.setLastMove(opposingPawn, Square.at(6, 3), Square.at(4, 3));
+            board.setLastMove(opposingPawn, Square.at(6, 3), Square.at(4, 3), false);
 
             const moves = pawn.getAvailableMoves(board);
 
@@ -179,7 +179,7 @@ describe('Pawn', () => {
             const opposingPawn = new Pawn(Player.WHITE);
             board.setPiece(Square.at(3, 4), pawn);
             board.setPiece(Square.at(3, 3), opposingPawn);
-            board.setLastMove(opposingPawn, Square.at(1, 3), Square.at(3, 3));
+            board.setLastMove(opposingPawn, Square.at(1, 3), Square.at(3, 3), false);
 
             const moves = pawn.getAvailableMoves(board);
 

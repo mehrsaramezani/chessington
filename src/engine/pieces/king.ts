@@ -8,42 +8,43 @@ export default class King extends Piece {
         super(player);
     }
 
+    private moveOneSpaceInAnyDirection(board: Board, availableMoves: any[], rowDirection: string = '', colDirection: string = ''){
+        const currentSquare = board.findPiece(this);
+
+        const iRow = (rowDirection == 'up' || rowDirection == 'top') ? 1 : (rowDirection == 'down' || rowDirection == 'bottom') ? -1 : 0;
+        const iCol = colDirection == 'right' ? 1 : colDirection == 'left' ? -1 : 0;
+
+        let newAvailableMoves = availableMoves;
+        let checkingSquare = Square.at(currentSquare.row + iRow, currentSquare.col + iCol);
+
+        if (checkingSquare.row >= 0 && checkingSquare.row < 8 && checkingSquare.col >= 0 && checkingSquare.col < 8){
+            if ((board.getPiece(checkingSquare) == undefined || board.getPiece(checkingSquare)?.player != this.player) && !(board.getPiece(checkingSquare) instanceof King)) {
+                newAvailableMoves.push(checkingSquare);
+            }
+        }
+
+        return newAvailableMoves;
+    }
+
     public getAvailableMoves(board: Board) {
-        let currentSquare = board.findPiece(this)
         let availableMoves = new Array(0)
 
-        if (currentSquare.row + 1 < 8) {
-            let checkingSquare = Square.at(currentSquare.row + 1, currentSquare.col)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // up
-        if (currentSquare.row - 1 >= 0) {
-            let checkingSquare = Square.at(currentSquare.row - 1, currentSquare.col)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // down
-        if (currentSquare.col + 1 < 8) {
-            let checkingSquare = Square.at(currentSquare.row , currentSquare.col + 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // right
-        if (currentSquare.col - 1 >= 0) {
-            let checkingSquare = Square.at(currentSquare.row, currentSquare.col - 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // left
-        if (currentSquare.row + 1 < 8 && currentSquare.col + 1 < 8) {
-            let checkingSquare = Square.at(currentSquare.row + 1, currentSquare.col + 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // top-right
-        if (currentSquare.row + 1 < 8 && currentSquare.col - 1 >= 0) {
-            let checkingSquare = Square.at(currentSquare.row + 1, currentSquare.col - 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // top-left
-        if (currentSquare.row - 1 >= 0 && currentSquare.col + 1 < 8) {
-            let checkingSquare = Square.at(currentSquare.row - 1, currentSquare.col + 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // bottom-right
-        if (currentSquare.row - 1 >= 0 && currentSquare.col - 1 >= 0) {
-            let checkingSquare = Square.at(currentSquare.row - 1, currentSquare.col - 1)
-            if (board.getPiece(checkingSquare)?.player != this.player && !(board.getPiece(checkingSquare) instanceof King)) availableMoves.push(checkingSquare)
-        } // bottom-left
+        // up
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'up', '')
+        // down
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'down', '')
+        // right
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, '', 'right')
+        // left
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, '', 'left')
+        // top-right
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'top', 'right')
+        // top-left
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'top', 'left')
+        // bottom-right
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'bottom', 'right')
+        // bottom-left
+        availableMoves = this.moveOneSpaceInAnyDirection(board, availableMoves, 'bottom', 'left')
 
         return availableMoves;
     }
