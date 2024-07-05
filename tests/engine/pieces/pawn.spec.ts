@@ -95,6 +95,19 @@ describe('Pawn', () => {
 
             moves.should.deep.include(Square.at(5, 3));
         });
+
+        it('takes the opposing pawn after En Passant', () => {
+            const pawn = new Pawn(Player.WHITE);
+            const opposingPawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(4, 3), opposingPawn);
+            board.setLastMove(opposingPawn, Square.at(6, 3), Square.at(4, 3), false);
+            pawn.moveTo(board, Square.at(5, 3));
+
+            const takenPiece = board.getPiece(Square.at(4, 3));
+
+            (takenPiece === undefined).should.be.true;
+        })
     });
 
     describe('black pawns', () => {
@@ -185,6 +198,19 @@ describe('Pawn', () => {
 
             moves.should.deep.include(Square.at(2, 3));
         });
+
+        it('takes the opposing pawn after En Passant', () => {
+            const pawn = new Pawn(Player.BLACK);
+            const opposingPawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(3, 3), opposingPawn);
+            board.setLastMove(opposingPawn, Square.at(1, 3), Square.at(3, 3), false);
+            pawn.moveTo(board, Square.at(2, 3));
+
+            const takenPiece = board.getPiece(Square.at(3, 3));
+
+            (takenPiece === undefined).should.be.true;
+        })
     });
 
     it('cannot move if there is a piece in front', () => {
