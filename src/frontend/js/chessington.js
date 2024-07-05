@@ -68,6 +68,14 @@ function onDrop(source, target) {
     if (!pieceToMove || !pieceToMove.getAvailableMoves(board).some(square => square.equals(toSquare))) {
         return 'snapback';
     }
+    // if (pieceToMove instanceof Pawn && fromSquare.col !== toSquare.col && board.getPiece(toSquare) === undefined) {
+    //     board.setLastMove(pieceToMove, fromSquare, toSquare, true);
+    //     const squareOfTakenPawn = Square.at(fromSquare.row, toSquare.col);
+    //     board.setPiece(squareOfTakenPawn, undefined);
+    // } else {
+    //     board.setLastMove(pieceToMove, fromSquare, toSquare, false);
+    // }
+
     pieceToMove.moveTo(board, toSquare);
     updateStatus();
 }
